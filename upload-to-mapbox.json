@@ -5,29 +5,29 @@
         "isPublic": true,
         "timeout": 7200
     },
-    "version": "0.0.2",
+    "version": "0.0.4",
     "inputPortDescriptors": [
         {
             "name": "input",
-            "type": "Directory",
+            "type": "directory",
             "description": "Contains input file. Acceptable file formats and size limits can be found at https://www.mapbox.com/api-documentation/#uploads.",
             "required": true
         },
         {
             "name": "tileset_name",
-            "type": "String",
+            "type": "string",
             "description": "The Mapbox tileset name.",
             "required": true
         },
         {
             "name": "token",
-            "type": "String",
+            "type": "string",
             "description": "The Mapbox upload token.",
             "required": true
         },
         {
             "name": "timeout",
-            "type": "String",
+            "type": "string",
             "description": "Upload timeout in seconds.",
             "required": false
         }
