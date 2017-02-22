@@ -11,8 +11,8 @@ In a Python terminal:
 
 ```python
 import gbdxtools
-from os.path import join
-import uuid
+
+gbdx = gbdxtools.Interface()
 
 utom = gbdx.Task('upload-to-mapbox')
 
@@ -32,8 +32,12 @@ wf.execute()
 
 In order to be able to upload to your account, you need to create [a secret scope token](https://www.mapbox.com/studio/account/tokens/).
 
+If there are more than one files in the specified location, then only one will be (arbitrarily) picked by the
+task for upload.
+
 If the task completes successfully, your tileset should be present in your account with the name specified
 in the corresponding task input.
+
 
 ## Input ports
 
@@ -42,6 +46,7 @@ in the corresponding task input.
 | input | Directory | Contains input file. Acceptable file formats and size limits can be found at https://www.mapbox.com/api-documentation/#uploads. | True |
 |tileset_name | String | The Mapbox tileset name. | True |
 | token | String | The Mapbox upload token. | True |
+| timeout | String | Upload timeout in seconds. | False |
 
 ## Output ports
 
@@ -88,7 +93,7 @@ Then, within the container:
 python /upload-to-mapbox.py
 ```
 
-Confirm that the tileset is present in your account. 
+Confirm that the tileset is present in your account.
 
 
 ### Register on GBDX

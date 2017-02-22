@@ -1,0 +1,44 @@
+{
+    "name": "upload-to-mapbox",
+    "description": "A GBDX task that uploads raster or vector files to Mapbox Studio.",
+    "properties": {
+        "isPublic": true,
+        "timeout": 7200
+    },
+    "version": "0.0.1",
+    "inputPortDescriptors": [
+        {
+            "name": "input",
+            "type": "Directory",
+            "description": "Contains input file. Acceptable file formats and size limits can be found at https://www.mapbox.com/api-documentation/#uploads.",
+            "required": true
+        },
+        {
+            "name": "tileset_name",
+            "type": "String",
+            "description": "The Mapbox tileset name.",
+            "required": true
+        },
+        {
+            "name": "token",
+            "type": "String",
+            "description": "The Mapbox upload token.",
+            "required": true
+        },
+        {
+            "name": "timeout",
+            "type": "String",
+            "description": "Upload timeout in seconds.",
+            "required": false
+        }
+      ],
+    "containerDescriptors": [
+        {
+            "type": "DOCKER",
+            "properties": {
+                "image": "platformstories/upload-to-mapbox"
+            },
+            "command": "python /upload-to-mapbox.py"
+        }
+    ]
+}
