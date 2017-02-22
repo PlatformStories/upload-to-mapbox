@@ -95,10 +95,9 @@ Login to Docker Hub:
 docker login
 ```
 
-Tag your image using your username and push it to DockerHub
+Tag your image using your username and push it to DockerHub:
 
 ```bash
-docker login
 docker tag upload-to-mapbox yourusername/upload-to-mapbox
 docker push yourusername/upload-to-mapbox
 ```
@@ -119,4 +118,4 @@ gbdx.task_registry.register(json_filename='upload-to-mapbox.json')
 ```
 
 Note: If you change the task image, you need to reregister the task with a higher version number
-in order for the new image to take effect. Keep this in mind especially if you use Docker automated build. 
+in order for the new image to take effect. Keep this in mind especially if you use Docker automated build.
