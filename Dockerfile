@@ -9,5 +9,5 @@ RUN apt-get update && \
 # install mapbox
 RUN pip install mapbox
 
-ADD upload-to-mapbox.py
-ADD gbdx_task_interface.py
+ADD upload-to-mapbox.py /
+ADD gbdx_task_interface.py /
