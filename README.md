@@ -20,7 +20,7 @@ utom = gbdx.Task('upload-to-mapbox')
 utom.inputs.input = 's3://bucket/prefix/my-directory'
 
 # Specify Mapbox tileset name
-utom.inputs.tileset_name = 'my-name'
+utom.inputs.tileset_name = 'buildings'
 
 # Specify access token to upload
 utom.inputs.token = 'vkjxvkdfjnvdfkvndfnvkd'
@@ -68,23 +68,15 @@ Then:
 
 ```bash
 cd upload-to-mapbox
-docker build -t yourusername/upload-to-mapbox .
+docker build -t upload-to-mapbox .
 ```
-
-Then push the image to Docker Hub:
-
-```bash
-docker push yourusername/upload-to-mapbox
-```
-
-The image name should be the same as the image name under containerDescriptors in upload-to-mapbox.json.
 
 ### Try out locally
 
 Create a container in interactive mode and mount the sample input under `/mnt/work/input/`:
 
 ```bash
-docker run -v full/path/to/sample-input:/mnt/work/input -it yourusername/upload-to-mapbox
+docker run -v full/path/to/sample-input:/mnt/work/input -it upload-to-mapbox
 ```
 
 Then, within the container:
@@ -95,6 +87,26 @@ python /upload-to-mapbox.py
 
 Confirm that the tileset is present in your account.
 
+### Docker Hub
+
+Login to Docker Hub:
+
+```bash
+docker login
+```
+
+Tag your image using your username and push it to DockerHub
+
+```bash
+docker login
+docker tag upload-to-mapbox yourusername/upload-to-mapbox
+docker push yourusername/upload-to-mapbox
+```
+
+The image name should be the same as the image name under containerDescriptors in upload-to-mapbox.json.
+
+Alternatively, you can link this repository to a [Docker automated build](https://docs.docker.com/docker-hub/builds/).
+Every time you push a change to the repository, the Docker image gets automatically updated.
 
 ### Register on GBDX
 
@@ -107,4 +119,4 @@ gbdx.task_registry.register(json_filename='upload-to-mapbox.json')
 ```
 
 Note: If you change the task image, you need to reregister the task with a higher version number
-in order for the new image to take effect.
+in order for the new image to take effect. Keep this in mind especially if you use Docker automated build. 
