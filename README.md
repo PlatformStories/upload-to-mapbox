@@ -47,6 +47,8 @@ in the corresponding task input.
 |tileset_name | String | The Mapbox tileset name. | True |
 | token | String | The Mapbox upload token. | True |
 | timeout | String | Upload timeout in seconds. | False |
+| min_zoom | String | Minimum zoom level for geojson vector tiles. | False |
+| max_zoom | String | Maximum zoom level for geojson vector tiles. | False |
 
 ## Output ports
 

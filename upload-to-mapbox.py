@@ -1,7 +1,9 @@
 import mapbox
 import os
-from gbdx_task_interface import GbdxTaskInterface
+import subprocess
 from time import sleep
+
+from gbdx_task_interface import GbdxTaskInterface
 
 
 class UploadToMapbox(GbdxTaskInterface):
@@ -18,9 +20,26 @@ class UploadToMapbox(GbdxTaskInterface):
         # Get timeout (in seconds)
         timeout = int(self.get_input_string_port('timeout', default='300'))
 
+        # Get min_zoom (applies only to geojson vector tiles)
+        min_zoom = self.get_input_string_port('min_zoom', default='9')
+
+        # Get max_zoom (applies only to geojson vector tiles)
+        max_zoom = self.get_input_string_port('max_zoom', default='14')
+
         # Get input filename; if there are multiple files, pick one arbitrarily
         input_dir = self.get_input_data_port('input')
         filename = [os.path.join(dp, f) for dp, dn, fn in os.walk(input_dir) for f in fn][0]
+
+        # convert to mbtiles format if geojson
+        try:
+            print 'Converting to mbtiles'
+            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} {}'.format(filename.split('.geojson')[0], min_zoom, max_zoom, filename)
+            proc = subprocess.Popen([convert], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, err = proc.communicate()
+            filename = filename.split('.geojson')[0] + '.mbtiles'
+        except:
+            print 'Could not convert to mbtiles'
+            pass
 
         # Create mapbox uploader object
         service = mapbox.Uploader()

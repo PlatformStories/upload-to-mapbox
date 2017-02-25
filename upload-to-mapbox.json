@@ -5,7 +5,7 @@
         "isPublic": true,
         "timeout": 7200
     },
-    "version": "0.0.4",
+    "version": "0.0.5",
     "inputPortDescriptors": [
         {
             "name": "input",
@@ -29,6 +29,18 @@
             "name": "timeout",
             "type": "string",
             "description": "Upload timeout in seconds.",
+            "required": false
+        },
+        {
+            "name": "min_zoom",
+            "type": "string",
+            "description": "Minimum zoom level for geojson vector tiles.",
+            "required": false
+        },
+        {
+            "name": "max_zoom",
+            "type": "string",
+            "description": "Maximum zoom level for geojson vector tiles.",
             "required": false
         }
       ],
