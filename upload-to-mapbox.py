@@ -21,7 +21,7 @@ class UploadToMapbox(GbdxTaskInterface):
         timeout = int(self.get_input_string_port('timeout', default='300'))
 
         # Get min_zoom (applies only to geojson vector tiles)
-        min_zoom = self.get_input_string_port('min_zoom', default='9')
+        min_zoom = self.get_input_string_port('min_zoom', default='0')
 
         # Get max_zoom (applies only to geojson vector tiles)
         max_zoom = self.get_input_string_port('max_zoom', default='14')
@@ -38,7 +38,7 @@ class UploadToMapbox(GbdxTaskInterface):
         if 'geojson' in filename:
             print 'Converting to mbtiles'
             prefix = filename.split('.geojson')[0]
-            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} {}'.format(prefix, min_zoom, max_zoom, filename)
+            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} -l {} {}'.format(prefix, min_zoom, max_zoom, tileset_name, filename)
             proc = subprocess.Popen([convert], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = proc.communicate()
             filename = prefix + '.mbtiles'
