@@ -5,12 +5,12 @@
         "isPublic": true,
         "timeout": 7200
     },
-    "version": "0.0.5",
+    "version": "0.0.6",
     "inputPortDescriptors": [
         {
             "name": "input",
             "type": "directory",
-            "description": "Contains input file. Acceptable file formats and size limits can be found at https://www.mapbox.com/api-documentation/#uploads.",
+            "description": "Contains input file. Acceptable file formats are tif and geojson. Size limits can be found at https://www.mapbox.com/api-documentation/#uploads.",
             "required": true
         },
         {

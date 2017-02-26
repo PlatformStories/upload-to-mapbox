@@ -43,7 +43,7 @@ in the corresponding task input.
 
 | Name  | Type |  Description | Required |
 |-------|--------------|----------------|----------------|
-| input | Directory | Contains input file. Acceptable file formats and size limits can be found at https://www.mapbox.com/api-documentation/#uploads. | True |
+| input | Directory | Contains input file. Acceptable file formats are tif and geojson. Size limits can be found at https://www.mapbox.com/api-documentation/#uploads. | True |
 |tileset_name | String | The Mapbox tileset name. | True |
 | token | String | The Mapbox upload token. | True |
 | timeout | String | Upload timeout in seconds. | False |

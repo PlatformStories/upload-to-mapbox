@@ -28,18 +28,20 @@ class UploadToMapbox(GbdxTaskInterface):
 
         # Get input filename; if there are multiple files, pick one arbitrarily
         input_dir = self.get_input_data_port('input')
-        filename = [os.path.join(dp, f) for dp, dn, fn in os.walk(input_dir) for f in fn][0]
+        filename = [os.path.join(dp, f) for dp, dn, fn in os.walk(input_dir) for f in fn if ('tif' in f or 'geojson' in f)][0]
+
+        if filename is None:
+            print 'Invalid filename!'
+            return 0
 
         # convert to mbtiles format if geojson
-        try:
+        if 'geojson' in filename:
             print 'Converting to mbtiles'
-            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} {}'.format(filename.split('.geojson')[0], min_zoom, max_zoom, filename)
+            prefix = filename.split('.geojson')[0]
+            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} {}'.format(prefix, min_zoom, max_zoom, filename)
             proc = subprocess.Popen([convert], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = proc.communicate()
-            filename = filename.split('.geojson')[0] + '.mbtiles'
-        except:
-            print 'Could not convert to mbtiles'
-            pass
+            filename = prefix + '.mbtiles'
 
         # Create mapbox uploader object
         service = mapbox.Uploader()
