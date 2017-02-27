@@ -23,7 +23,7 @@ utom.inputs.input = 's3://bucket/prefix/my-directory'
 utom.inputs.tileset_name = 'buildings'
 
 # Specify access token to upload
-utom.inputs.token = 'vkjxvkdfjnvdfkvndfnvkd'
+utom.inputs.token = 'put valid token here'
 
 # Run gbdx workflow
 wf = gbdx.Workflow([utom])
