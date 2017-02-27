@@ -1,6 +1,6 @@
 {
   "tileset_name": "test_buildings",
-  "token": "sk.eyJ1IjoicGxhdGZvcm1zdG9yaWVzIiwiYSI6ImNpemczbDFqaDAwdXQzM293a3N5dmpxcmEifQ.r1kd8CDHZqXz-XUwAAV4ZQ",
+  "token": "put valid token here",
   "timeout": "600",
   "max_zoom": "14",
   "min_zoom": "10"
