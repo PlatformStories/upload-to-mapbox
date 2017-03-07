@@ -87,7 +87,13 @@ Then, within the container:
 python /upload-to-mapbox.py
 ```
 
-Confirm that the tileset is present in your account.
+Confirm that the tileset is present in your account. You can also check the following link
+
+```bash
+https://api.mapbox.com/v4/MAP_ID/page.html?access_token=pk.eyJ1IjoicGxhdGZvcm1zdG9yaWVzIiwiYSI6ImNpeTZkeWlvOTAwNm0yeHFocHFyaGFleDcifQ.wOsbVsS0NXKrWeX2bQwc-g
+```
+
+where MAP_ID is `yourmapboxusername.tileset_name`.
 
 ### Docker Hub
 
