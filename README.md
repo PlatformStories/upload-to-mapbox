@@ -93,7 +93,7 @@ Confirm that the tileset is present in your account. You can also check the foll
 https://api.mapbox.com/v4/MAP_ID/page.html?access_token=pk.eyJ1IjoicGxhdGZvcm1zdG9yaWVzIiwiYSI6ImNpeTZkeWlvOTAwNm0yeHFocHFyaGFleDcifQ.wOsbVsS0NXKrWeX2bQwc-g
 ```
 
-where MAP_ID is `yourmapboxusername.tileset_name`.
+where MAP_ID is `yourmapboxusername.tileset_name`. Note that this link will work only if the tileset is made public.
 
 ### Docker Hub
 
