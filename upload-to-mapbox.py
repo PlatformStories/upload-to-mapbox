@@ -28,7 +28,7 @@ class UploadToMapbox(GbdxTaskInterface):
 
         # Get input filename; if there are multiple files, pick one arbitrarily
         input_dir = self.get_input_data_port('input')
-        filename = [os.path.join(dp, f) for dp, dn, fn in os.walk(input_dir) for f in fn if ('tif' in f or 'geojson' in f)][0]
+        filename = [os.path.join(dp, f) for dp, dn, fn in os.walk(input_dir) for f in fn if ('tif' in f or 'geojson' in f or 'json' in f)][0]
 
         if filename is None:
             print 'Invalid filename!'
