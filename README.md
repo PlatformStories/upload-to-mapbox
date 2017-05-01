@@ -3,6 +3,7 @@
 A GBDX task that uploads raster or vector files to [Mapbox Studio](https://www.mapbox.com/mapbox-studio/).
 You need a Mapbox Studio account in order to use this task.
 Acceptable file formats and size limits can be found [here](https://www.mapbox.com/api-documentation/#uploads).
+Useful tips for uploading can be found [here](https://www.mapbox.com/help/uploads/).
 You can find an example of using upload-to-mapbox [here](http://gbdxstories.digitalglobe.com/osm-lulc/).
 
 ## Run
