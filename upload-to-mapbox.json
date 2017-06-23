@@ -5,7 +5,7 @@
         "isPublic": true,
         "timeout": 7200
     },
-    "version": "0.0.7",
+    "version": "0.1.0",
     "inputPortDescriptors": [
         {
             "name": "input",
@@ -28,19 +28,37 @@
         {
             "name": "timeout",
             "type": "string",
-            "description": "Upload timeout in seconds.",
+            "description": "Upload timeout in seconds. Default is 600.",
             "required": false
         },
         {
             "name": "min_zoom",
             "type": "string",
-            "description": "Minimum zoom level for geojson vector tiles.",
+            "description": "Minimum zoom level for vector tiles. Default is 0.",
             "required": false
         },
         {
             "name": "max_zoom",
             "type": "string",
-            "description": "Maximum zoom level for geojson vector tiles.",
+            "description": "Maximum zoom level for vector tiles. Default is 14.",
+            "required": false
+        },
+        {
+            "name": "filtered_properties",
+            "type": "string",
+            "description": "Exclude named properties from all features in input geojson. Property names should be given in string separated by commas. Default is none.",
+            "required": false
+        },
+        {
+            "name": "full_detail",
+            "type": "string",
+            "description": "Detail in bits at max zoom level. Default is 12.",
+            "required": false
+        },
+        {
+            "name": "low_detail",
+            "type": "string",
+            "description": "Detail in bits at lower zoom levels. Default is 12.",
             "required": false
         }
       ],

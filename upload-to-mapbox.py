@@ -10,21 +10,32 @@ class UploadToMapbox(GbdxTaskInterface):
 
     def invoke(self):
 
-        # Get token
+        # Token
         token = self.get_input_string_port('token')
         os.environ['MAPBOX_ACCESS_TOKEN'] = token
 
-        # Get tileset name
+        # Tileset name
         tileset_name = self.get_input_string_port('tileset_name')
 
-        # Get timeout (in seconds)
-        timeout = int(self.get_input_string_port('timeout', default='300'))
+        # Timeout (in seconds)
+        timeout = int(self.get_input_string_port('timeout', default='600'))
 
-        # Get min_zoom (applies only to geojson vector tiles)
+        # The following string inputs apply only to vector tiles
+
+        # Min zoom
         min_zoom = self.get_input_string_port('min_zoom', default='0')
 
-        # Get max_zoom (applies only to geojson vector tiles)
+        # Max zoom
         max_zoom = self.get_input_string_port('max_zoom', default='14')
+
+        # Properties to be filtered
+        filtered_properties = self.get_input_string_port('filtered_properties', default='').split(',')
+
+        # Max detail at this zoom level
+        full_detail = self.get_input_string_port('full_detail', default='')
+
+        # Low detail at this zoom level
+        low_detail = self.get_input_string_port('low_detail', default='')
 
         # Get input filename; if there are multiple files, pick one arbitrarily
         input_dir = self.get_input_data_port('input')
@@ -38,7 +49,15 @@ class UploadToMapbox(GbdxTaskInterface):
         if 'geojson' in filename:
             print 'Converting to mbtiles'
             prefix = filename.split('.geojson')[0]
-            convert = 'tippecanoe -o {}.mbtiles -Z {} -z {} -l {} {}'.format(prefix, min_zoom, max_zoom, tileset_name, filename)
+            convert = 'tippecanoe -o {}.mbtiles -Z{} -z{}'.format(prefix, min_zoom, max_zoom)
+            if filtered_properties:
+                convert += ' ' + ' '.join(len(filtered_properties)*['-x {}']).format(*filtered_properties)
+            if full_detail:
+                convert += ' -d{}'.format(full_detail)
+            if low_detail:
+                convert += ' -D{}'.format(low_detail)
+
+            convert += ' -l {} {}'.format(tileset_name, filename)
             proc = subprocess.Popen([convert], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             out, err = proc.communicate()
             filename = prefix + '.mbtiles'

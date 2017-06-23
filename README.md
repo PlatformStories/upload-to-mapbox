@@ -1,7 +1,8 @@
 # upload-to-mapbox
 
 A GBDX task that uploads raster or vector files to [Mapbox Studio](https://www.mapbox.com/mapbox-studio/).
-You need a Mapbox Studio account in order to use this task.
+
+In the case of a vector file, [tippecanoe](https://github.com/mapbox/tippecanoe) is used to create the corresponding .mbtiles file prior to upload. You need a Mapbox Studio account in order to use this task.
 Acceptable file formats and size limits can be found [here](https://www.mapbox.com/api-documentation/#uploads).
 Useful tips for uploading can be found [here](https://www.mapbox.com/help/uploads/).
 You can find an example of using upload-to-mapbox [here](http://gbdxstories.digitalglobe.com/osm-lulc/).
@@ -47,9 +48,12 @@ in the corresponding task input.
 | input | Directory | Contains input file. Acceptable file formats are tif and geojson. Size limits can be found at https://www.mapbox.com/api-documentation/#uploads. | True |
 |tileset_name | String | The Mapbox tileset name. | True |
 | token | String | The Mapbox upload token. | True |
-| timeout | String | Upload timeout in seconds. | False |
-| min_zoom | String | Minimum zoom level for geojson vector tiles. | False |
-| max_zoom | String | Maximum zoom level for geojson vector tiles. | False |
+| timeout | String | Upload timeout in seconds. Default is 600. | False |
+| min_zoom | String | Minimum zoom level for vector tiles. Default is 0. | False |
+| max_zoom | String | Maximum zoom level for vector tiles. Default is 14. | False |
+| filtered_properties | String | Exclude named properties from all features in input geojson. Property names should be given in string separated by commas. Default is none. | False |
+| full_detail | String | Detail in bits at max zoom level. Default is 12. | False |
+| low_detail | String | Detail in bits at lower zoom levels. Default is 12. | False |
 
 ## Output ports
 

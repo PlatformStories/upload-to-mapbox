@@ -1,7 +1,8 @@
 {
   "tileset_name": "test_buildings",
-  "token": "put valid token here",
-  "timeout": "600",
+  "token": "<put valid token here>",
   "max_zoom": "14",
-  "min_zoom": "10"
+  "min_zoom": "10",
+  "filtered_properties": "osm_id,osm_way_id",
+  "low_detail": "9"
 }
