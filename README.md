@@ -51,7 +51,8 @@ in the corresponding task input.
 | timeout | String | Upload timeout in seconds. Default is 600. | False |
 | min_zoom | String | Minimum zoom level for vector tiles. Default is 0. | False |
 | max_zoom | String | Maximum zoom level for vector tiles. Default is 14. | False |
-| filtered_properties | String | Exclude named properties from all features in input geojson. Property names should be given in string separated by commas. Default is none. | False |
+| excluded_properties | String | Exclude named properties from all features in input geojson. Property names should be given in string separated by commas. Default is none. | False |
+| criteria | String | Filtering criteria for feature properties in input geojson. Criteria should be separated by commas. The format is 'certainty >= 0.99,class == 'building''. Default is none. |
 | full_detail | String | Detail in bits at max zoom level. Default is 12. | False |
 | low_detail | String | Detail in bits at lower zoom levels. Default is 12. | False |
 

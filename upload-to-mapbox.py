@@ -1,10 +1,11 @@
 import mapbox
 import os
 import subprocess
+import json
+from geojson import FeatureCollection
+
 from time import sleep
-
 from gbdx_task_interface import GbdxTaskInterface
-
 
 class UploadToMapbox(GbdxTaskInterface):
 
@@ -28,13 +29,16 @@ class UploadToMapbox(GbdxTaskInterface):
         # Max zoom
         max_zoom = self.get_input_string_port('max_zoom', default='14')
 
-        # Properties to be filtered
-        filtered_properties = self.get_input_string_port('filtered_properties', default='').split(',')
+        # Properties to be excluded
+        excluded_properties = self.get_input_string_port('excluded_properties', default='').split(',')
 
-        # Max detail at this zoom level
+        # Filtering criteria
+        criteria = self.get_input_string_port('criteria', default='')
+
+        # Vector tile detail at max zoom
         full_detail = self.get_input_string_port('full_detail', default='')
 
-        # Low detail at this zoom level
+        # Vector tile detail at lower zoom levels
         low_detail = self.get_input_string_port('low_detail', default='')
 
         # Get input filename; if there are multiple files, pick one arbitrarily
@@ -47,11 +51,37 @@ class UploadToMapbox(GbdxTaskInterface):
 
         # convert to mbtiles format if geojson
         if 'geojson' in filename:
+
+            # if there are filtering criteria present, then filter features
+            print 'Filtering'
+            if criteria:
+                criteria = criteria.split(',')
+                with open(filename) as f:
+                    data = json.load(f)
+                    filtered_features = []
+                    for feature in data['features']:
+                        keep = True
+                        # go through each criterion
+                        for criterion in criteria:
+                            prop, key, value = criterion.split(' ')
+                            # retrieve property value
+                            this_value = feature['properties'][prop]
+                            # some hacking here to handle string- vs. numeric-valued properties
+                            if isinstance(this_value, basestring):
+                                condition = "'" + this_value + "'" + key + value
+                            else:
+                                condition = str(this_value) + key + value
+                            keep *= eval(condition)
+                        if keep:
+                            filtered_features.append(feature)
+                with open(filename, 'w') as f:
+                    json.dump(FeatureCollection(filtered_features), f)
+
             print 'Converting to mbtiles'
             prefix = filename.split('.geojson')[0]
             convert = 'tippecanoe -o {}.mbtiles -Z{} -z{}'.format(prefix, min_zoom, max_zoom)
-            if filtered_properties:
-                convert += ' ' + ' '.join(len(filtered_properties)*['-x {}']).format(*filtered_properties)
+            if excluded_properties:
+                convert += ' ' + ' '.join(len(excluded_properties)*['-x {}']).format(*excluded_properties)
             if full_detail:
                 convert += ' -d{}'.format(full_detail)
             if low_detail:
