@@ -79,7 +79,7 @@ class UploadToMapbox(GbdxTaskInterface):
 
             print 'Converting to mbtiles'
             prefix = filename.split('.geojson')[0]
-            convert = 'tippecanoe -o {}.mbtiles -Z{} -z{}'.format(prefix, min_zoom, max_zoom)
+            convert = 'tippecanoe -o {}.mbtiles -Z{} -z{} --drop-densest-as-needed'.format(prefix, min_zoom, max_zoom)
             if excluded_properties:
                 convert += ' ' + ' '.join(len(excluded_properties)*['-x {}']).format(*excluded_properties)
             if full_detail:
